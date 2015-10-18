@@ -39,7 +39,7 @@ function parseMenu(response) {
                                 var itemDescription = contents[i].description ? contents[i].description : "No description";
                                 menuItems[itemName] = {
                                     itemName: itemName,
-                                    itemScore: 0,
+                                    uids: [],
 									itemPrice: itemPrice,
 									itemDescription: itemDescription
                                 }

@@ -11,10 +11,10 @@ app.controller('MenuController', function($scope, $state, $location, $ionicPopup
 		var loginRef = new Firebase('https://shining-fire-3905.firebaseio.com/');
 		var authData = loginRef.getAuth();
 		if (authData) {
-			menuItem.itemScore++;
+			menuItem.uids.push(authData.uid);
 			var updatedItem = {
 				itemName: menuItem.itemName,
-				itemScore: menuItem.itemScore,
+				uids: menuItem.uids,
 				itemDescription: menuItem.itemDescription,
 				itemPrice: menuItem.itemPrice
 			};

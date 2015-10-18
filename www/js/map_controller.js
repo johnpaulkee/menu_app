@@ -2,7 +2,7 @@ app.controller('MapController', function($scope, $firebase, $ionicPopup, $state,
 	$scope.user = {};
 	var firebaseObj = new Firebase("https://crackling-torch-9931.firebaseio.com/MapDetails");
 	var fb = $firebase(firebaseObj);
-  
+
 	$scope.goToMenu = function() {
 		$state.go('menu')
 	};
@@ -11,10 +11,10 @@ app.controller('MapController', function($scope, $firebase, $ionicPopup, $state,
 		$state.go('login')
 	};
 
-	$scope.showAlert = function() {
+	$scope.showLog = function(name, address) {
 		$ionicPopup.alert({
 			title: 'Map',
-			template: 'Your location has been saved!!'
+			template: 'Your location has been saved!!' + name + address
 		});
 	};
 
@@ -29,6 +29,7 @@ app.directive('map', function() {
 			if(navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(position) {
 					initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+          secondaryLocation = new google.maps.LatLng(position.coords-1, position.coords.longitude+1);
 					map.setCenter(initialLocation);
 					var marker = new google.maps.Marker({
 						position: initialLocation,
@@ -40,7 +41,7 @@ app.directive('map', function() {
 						radius: 1000,
 						types: ['restaurant']
 					}, processResults);
-					
+
 						function processResults(results, status, pagination) {
 						  if (status !== google.maps.places.PlacesServiceStatus.OK) {
 							return;
@@ -60,47 +61,86 @@ app.directive('map', function() {
 							}
 						  }
 						}
+
+
+
 						
+					var infowindow = new google.maps.InfoWindow();
+						
+
 					function createMarkers(places) {
 					  var bounds = new google.maps.LatLngBounds();
 					  var placesList = document.getElementById('places');
-
+						console.log(places);
 					  for (var i = 0, place; place = places[i]; i++) {
+					  (function () {
 						var image = {
 						  url: place.icon,
+						  
 						  size: new google.maps.Size(71, 71),
 						  origin: new google.maps.Point(0, 0),
 						  anchor: new google.maps.Point(17, 34),
 						  scaledSize: new google.maps.Size(25, 25)
 						};
-
+						
 						var marker = new google.maps.Marker({
 						  map: map,
 						  icon: image,
 						  title: place.name,
-						  position: place.geometry.location
+						  position: place.geometry.location,
+						  address: place.formatted_address,
+						  id: place.id
 						});
+						
+						marker.setPlace({
+						  placeId: place.id,
+						  location: place.geometry.location
+						});
+						
+						  marker.addListener('click', function() {
+						  		infowindow.setContent('<div><strong>' + marker.title + '</strong><br>' +
+			'Place ID: ' + marker.placeId + '<br>' +
+			marker.id);
+							infowindow.open(map, marker);
+						  });
+
 
 						marker.addListener('click', function() {
-						 window.location.href = "testHTML.html";  
+						 window.location.href = "testHTML.html";
 					  });
+						if (placesList) {
+						placesList.innerHTML +=
+            '<center>' +
+            '<button class="button button-custom button-card button-light ink" id="placeTab">' +
+            place.name + '<br>' + place.vicinity
+            '</button> <br> </center>';
+						}
+		
+
+
+
+
+						 /*  google.maps.event.addListener(marker, 'click', function() {
+							alert(place[i]);
+						  }); */
 						if(placesList){
 						placesList.innerHTML += '<li id="placeTab">' + place.name + '</li>';
+
 						}
 
 						bounds.extend(place.geometry.location);
-					  }
+					  }())
+					   }
 					  map.fitBounds(bounds);
-					  
+
 					  if(document.getElementById('placeTab')){
-						google.maps.event.addDomListener(document.getElementById('placeTab'), 'click', function(element) {
-						window.alert('Map was clicked!');
-						});
+						        google.maps.event.addDomListener(document.getElementById('placeTab'),
+                    'click', function(name, vicinity) {
+						                window.alert('Map was clicked!');
+						        });
 						}
-					}
 						
-					
-					
+					}
 				}, function() {
 					handleNoGeolocation(true);
 				});
@@ -118,9 +158,6 @@ app.directive('map', function() {
 				}
 			},
 			map = new google.maps.Map(element[0],mapOptions);
-			
-
 			}
-		
 	};
 });

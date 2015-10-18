@@ -8,10 +8,17 @@ app = angular.module('menu-app', ['ionic', 'firebase', 'ionic-material', 'ionMdI
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/login');
     $stateProvider
+
         .state('login', {
             url: '/login',
             templateUrl: 'templates/login.html',
             controller: 'LoginController'
+        })
+
+        .state('signup', {
+            url: '/signup',
+            templateUrl: 'templates/signup.html',
+            controller: 'SignUpController'
         })
 
         .state('map', {
@@ -21,7 +28,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
         .state('menu', {
-            url: '/menu/:name',
+            url: '/menu/:id',
             templateUrl: 'templates/menu.html',
             controller: 'MenuController'
         });

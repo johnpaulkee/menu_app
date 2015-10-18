@@ -9,10 +9,8 @@
     </div>
     <center>
       <div class="list">
-
-        <ion-md-input placeholder="email" highlight-color="balanced" type="text" class="button-login"></ion-md-input>
-        <ion-md-input placeholder="Password" highlight-color="balanced" type="password" class="button-login"></ion-md-input>
-
+        <ion-md-input ng-model="data.email" placeholder="email" highlight-color="balanced" type="text" class="button-login"></ion-md-input>
+        <ion-md-input ng-model="data.password" placeholder="Password" highlight-color="balanced" type="password" class="button-login"></ion-md-input>
       </div>
       <div class="padding">
         <button class="button button-login button-assertive ink" ng-click="loginEmail()">Login</button>

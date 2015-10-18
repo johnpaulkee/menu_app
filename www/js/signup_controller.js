@@ -1,7 +1,6 @@
 app.controller('SignUpController', function($scope, $firebase, $ionicPopup, $state, $location, ionicMaterialInk) {
-	$scope.data = {
+	$scope.data = {};
 
-	};
 	$scope.goToMenu = function() {
 		$state.go('menu')
 	};
@@ -32,6 +31,12 @@ app.controller('SignUpController', function($scope, $firebase, $ionicPopup, $sta
 					});
 					$state.go('map');
 				}
+			});
+		}
+		else {
+			$ionicPopup.alert({
+				title: 'Failure',
+				template: 'Your passwords do not match'
 			});
 		}
 	};

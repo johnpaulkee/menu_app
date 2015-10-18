@@ -1,4 +1,5 @@
 app.controller('LoginController', function($scope, $firebase, $ionicPopup, $state, $location, ionicMaterialInk) {
+  $scope.data = {};
 
   $scope.goToMenu = function() {
     $state.go('menu')
@@ -13,17 +14,20 @@ app.controller('LoginController', function($scope, $firebase, $ionicPopup, $stat
   };
 
   $scope.loginEmail = function(){
-
     var ref = new Firebase("https://fmenu.firebaseio.com");
-
     ref.authWithPassword({
       email    : $scope.data.email,
       password : $scope.data.password
     }, function(error, authData) {
       if (error) {
         console.log("Login Failed!", error);
+        $ionicPopup.alert({
+          title: 'Login Failed',
+          template: 'Your username or password is wrong'
+        });
       } else {
         console.log("Authenticated successfully with payload:", authData);
+        $state.go('map')
       }
     });
 
@@ -32,8 +36,6 @@ app.controller('LoginController', function($scope, $firebase, $ionicPopup, $stat
   $scope.loginFacebook = function(){
 
     var ref = new Firebase("https://fmenu.firebaseio.com");
-
-
     if(ionic.Platform.isWebView()){
 
       $cordovaFacebook.login(["public_profile", "email"]).then(function(success){
@@ -43,8 +45,13 @@ app.controller('LoginController', function($scope, $firebase, $ionicPopup, $stat
         ref.authWithOAuthToken("facebook", success.authResponse.accessToken, function(error, authData) {
           if (error) {
             console.log('Firebase login failed!', error);
+            $ionicPopup.alert({
+              title: 'Login Failed',
+              template: 'Your username or password is wrong'
+            });
           } else {
             console.log('Authenticated successfully with payload:', authData);
+            $state.go('map')
           }
         });
 

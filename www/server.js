@@ -19,6 +19,7 @@ ref.child('requests').on('child_added', function (snapshot) {
 		function (error, response, body) {
 			console.log(body);
 			parseMenu(JSON.parse(body));
+			ref.child("requests").child(snapshot.key()).remove();
 		}
 	);
 });

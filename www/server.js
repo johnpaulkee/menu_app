@@ -35,11 +35,13 @@ function parseMenu(response) {
                         for (var i = 0;i < contents.length; i++) {
                             if (contents[i].type === "ITEM"){
                                 var itemName = contents[i].name.replace(/\./g,'%2E').replace(/\//g,'%2F');
+                                var itemPrice = contents[i].price ? contents[i].price : "No price";
+                                var itemDescription = contents[i].description ? contents[i].description : "No description";
                                 menuItems[itemName] = {
                                     itemName: itemName,
                                     itemScore: 0,
-									itemPrice: contents[i].price,
-									itemDescription: contents[i].description
+									itemPrice: itemPrice,
+									itemDescription: itemDescription
                                 }
                             }
                         }

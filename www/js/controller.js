@@ -56,7 +56,7 @@ app.controller('MapController', function($scope, $firebase, $ionicPopup, $state,
 
 app.directive('map', function() {
 	return {
-		restrict: 'A',
+		restrict: 'A',//
 		link:function(scope, element, attrs){
 			
 			var initialLocation;

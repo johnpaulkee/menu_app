@@ -1,5 +1,5 @@
 <ion-view title="Map">
-	<ion-nav-bar class="bar-assertive">
+	<ion-nav-bar class="bar-assertive" align-title="left">
  </ion-nav-bar>
 
 <ion-content scrollbar-y="true">
@@ -19,4 +19,14 @@
 	</ion-list>
 
 </ion-content>
+
+<ion-footer-bar align-title="left" class="bar-assertive">
+  <div class="buttons">
+    <button class="button">Left Button</button>
+  </div>
+  <h1 class="title">Title!</h1>
+  <div class="buttons" ng-click="doSomething()">
+    <button class="button">Right Button</button>
+  </div>
+</ion-footer-bar>
 </ion-view>

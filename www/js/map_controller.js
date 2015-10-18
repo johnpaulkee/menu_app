@@ -37,7 +37,7 @@ app.directive('map', function() {
 					var service = new google.maps.places.PlacesService(map);
 						service.nearbySearch({
 						location: initialLocation,
-						radius: 500,
+						radius: 1000,
 						types: ['restaurant']
 					}, processResults);
 					
@@ -61,7 +61,7 @@ app.directive('map', function() {
 						  }
 						}
 						
-						function createMarkers(places) {
+					function createMarkers(places) {
 					  var bounds = new google.maps.LatLngBounds();
 					  var placesList = document.getElementById('places');
 

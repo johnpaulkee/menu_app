@@ -1,23 +1,26 @@
 <ion-view title="Login">
+
+  <div class="bar bar-header bar-light">
+    <h1 class="title">WISE</h1>
+  </div>
+
   <ion-content style="background: url(img/login.jpg); background-size: cover;  background-repeat: no-repeat;
     background-position: center left; " scroll="false">
     <div class="hero no-header flat">
       <div class="content">
         <div class="app-icon"></div>
-        <h1>what to eat?</h1>
       </div>
     </div>
     <center>
       <div class="list">
-        <ion-md-input ng-model="data.email" placeholder="email" highlight-color="balanced" type="text" class="button-login"></ion-md-input>
-        <ion-md-input ng-model="data.password" placeholder="Password" highlight-color="balanced" type="password" class="button-login"></ion-md-input>
+        <ion-md-input ng-model="data.email" placeholder="email" highlight-color="balanced" type="email" class="input-login-forms"></ion-md-input>
+        <ion-md-input ng-model="data.password" placeholder="password" highlight-color="balanced" type="password" class="input-login-forms"></ion-md-input>
       </div>
       <div class="padding">
-        <button class="button button-login button-assertive ink" ng-click="loginEmail()">Login</button>
+        <button class="button button-login ink" ng-click="goToSignUp()"> Sign Up </button>
+        <button class="button button-login ink" ng-click="loginEmail()">Login</button>
         <br>
-        <button class="button button-login button-assertive ink" ng-click="loginFacebook()">Login with Facebook</button>
-        <br>
-        <button class="button button-login button-assertive ink" ng-click="goToSignUp()"> Sign Up </button>
+        <button class="button button-facebook ink" ng-click="loginFacebook()">Log In with Facebook</button>
       </div>
     </center>
   </ion-content>

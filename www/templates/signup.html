@@ -9,13 +9,12 @@
     <center>
       <div class="list">
         <h1> Please fill in your user information </h1>
-        <ion-md-input placeholder="Email" highlight-color="balanced" type="text" class="button-login"></ion-md-input>
-        <ion-md-input placeholder="Password" highlight-color="balanced" type="password" class="button-login"></ion-md-input>
-        <ion-md-input placeholder="Re-enter Password" highlight-color="balanced" type="password" class="button-login"></ion-md-input>
+        <ion-md-input ng-model="data.email" placeholder="email" highlight-color="balanced" type="email" class="button-login"></ion-md-input>
+        <ion-md-input ng-model="data.password" placeholder="password" highlight-color="balanced" type="password" class="button-login"></ion-md-input>
+        <ion-md-input ng-model="data.rep_password" placeholder="password" highlight-color="balanced" type="password" class="button-login"></ion-md-input>
       </div>
       <div class="padding">
-        <button class="button button-login button-assertive ink" ng-click="goToMap()"> Confirm </button>
-        <button class="button button-login button-assertive ink" ng-click="goToMap()"> Confirm </button>
+        <button class="button button-login button-assertive ink" ng-click="signupEmail()"> Confirm </button>
       </div>
     </center>
   </ion-content>

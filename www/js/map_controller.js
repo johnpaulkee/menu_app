@@ -1,7 +1,5 @@
 app.controller('MapController', function($scope, $firebase, $ionicPopup, $state, $location, ionicMaterialInk) {
     $scope.user = {};
-    var firebaseObj = new Firebase("https://crackling-torch-9931.firebaseio.com/MapDetails");
-    var fb = $firebase(firebaseObj);
 
     $scope.goToMenu = function() {
         $state.go('menu')
@@ -26,6 +24,8 @@ app.directive('map', function() {
         restrict: 'A',
         link: function(scope, element, attrs) {
             var initialLocation;
+			var directionsService = new google.maps.DirectionsService;
+			var directionsDisplay = new google.maps.DirectionsRenderer;
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -36,6 +36,7 @@ app.directive('map', function() {
                         map: map
                     });
                     var service = new google.maps.places.PlacesService(map);
+					directionsDisplay.setMap(map);
                     service.nearbySearch({
                         location: initialLocation,
                         radius: 1000,
@@ -97,14 +98,26 @@ app.directive('map', function() {
                                 });
 
                                 marker.addListener('click', function() {
+									calculateAndDisplayRoute(directionsService, directionsDisplay);
                                     infowindow.setContent('<div><strong>' + marker.title + '</strong><br>' + marker.address + '<br>' + '<a href =\"/#/menu/' + marker.title + '\"> View Menu </a></span></div>');
                                     infowindow.open(map, marker);
 
-                                    /* 	document.getElementsByClassName("js-menu")[0].addEventListener('click', function(){
-                                    	alert(marker.title +"  "+marker.address+"  " + marker.position);
-                                    	openMap(marker.title,marker.address);
-                                    	});*/
                                 });
+								
+								
+								function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+								  directionsService.route({
+									origin: initialLocation,
+									destination: marker.position,
+									travelMode: google.maps.TravelMode.WALKING
+								  }, function(response, status) {
+									if (status === google.maps.DirectionsStatus.OK) {
+									  directionsDisplay.setDirections(response);
+									} else {
+									  window.alert('Directions request failed due to ' + status);
+									}
+								  });
+								}
 
 
 
@@ -136,6 +149,14 @@ app.directive('map', function() {
                     }
                 },
                 map = new google.maps.Map(element[0], mapOptions);
+				
         }
     };
 });
+
+
+function ContentController($scope, $ionicSideMenuDelegate) {
+  $scope.toggleLeft = function() {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
+}

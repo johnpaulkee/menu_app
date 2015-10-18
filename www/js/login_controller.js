@@ -13,10 +13,17 @@ app.controller('LoginController', function($scope, $firebase, $ionicPopup, $stat
     $state.go('signup')
   };
 
-  $scope.loginEmail = function(){
+  $scope.loginEmail = function() {
     var ref = new Firebase("https://shining-fire-3905.firebaseio.com");
     var user_email = $scope.data.email;
     var user_password = $scope.data.email;
+
+    if ((user_email == null) || (user_password == null)) {
+      $ionicPopup.alert({
+        title: 'Login Failed',
+        template: 'Please provide an email or password to log in'
+      });
+    }
 
     ref.authWithPassword({
       email    : $scope.data.email,
@@ -36,46 +43,47 @@ app.controller('LoginController', function($scope, $firebase, $ionicPopup, $stat
 
   };
 
-  $scope.loginFacebook = function(){
-
-    var ref = new Firebase("https://shining-fire-3905.firebaseio.com");
-    if(ionic.Platform.isWebView()){
-
-      $cordovaFacebook.login(["public_profile", "email"]).then(function(success){
-
-        console.log(success);
-
-        ref.authWithOAuthToken("facebook", success.authResponse.accessToken, function(error, authData) {
-          if (error) {
-            console.log('Firebase login failed!', error);
-            $ionicPopup.alert({
-              title: 'Login Failed',
-              template: 'Your username or password is wrong'
-            });
-          } else {
-            console.log('Authenticated successfully with payload:', authData);
-            $state.go('map')
-          }
-        });
-
-      }, function(error){
-        console.log(error);
-      });
-
-    }
-    else {
-
-      ref.authWithOAuthPopup("facebook", function(error, authData) {
-        if (error) {
-          console.log("Login Failed!", error);
-        } else {
-          console.log("Authenticated successfully with payload:", authData);
-        }
-      });
-
-    }
-
-  };
+  // Facebook Integration
+  // $scope.loginFacebook = function(){
+  //
+  //   var ref = new Firebase("https://shining-fire-3905.firebaseio.com");
+  //   if(ionic.Platform.isWebView()){
+  //
+  //     $cordovaFacebook.login(["public_profile", "email"]).then(function(success){
+  //
+  //       console.log(success);
+  //
+  //       ref.authWithOAuthToken("facebook", success.authResponse.accessToken, function(error, authData) {
+  //         if (error) {
+  //           console.log('Firebase login failed!', error);
+  //           $ionicPopup.alert({
+  //             title: 'Login Failed',
+  //             template: 'Your username or password is wrong'
+  //           });
+  //         } else {
+  //           console.log('Authenticated successfully with payload:', authData);
+  //           $state.go('map')
+  //         }
+  //       });
+  //
+  //     }, function(error){
+  //       console.log(error);
+  //     });
+  //
+  //   }
+  //   else {
+  //
+  //     ref.authWithOAuthPopup("facebook", function(error, authData) {
+  //       if (error) {
+  //         console.log("Login Failed!", error);
+  //       } else {
+  //         console.log("Authenticated successfully with payload:", authData);
+  //       }
+  //     });
+  //
+  //   }
+  //
+  // };
 
   ionicMaterialInk.displayEffect();
 })

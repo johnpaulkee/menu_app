@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'menu-app' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-app = angular.module('menu-app', ['ionic', 'firebase'])
+app = angular.module('menu-app', ['ionic', 'firebase', 'ionic-material'])
 
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/map');
@@ -13,10 +13,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/map.html',
             controller: 'MapController'
         })
-        .state('restaurant', {
-            url: '/restaurant/:name',
-            templateUrl: 'templates/restaurant.html',
-            controller: 'RestaurantController'
+        .state('menu', {
+            url: '/menu',
+            templateUrl: 'templates/menu.html',
+            controller: 'MenuController'
         })
 })
 

@@ -1,20 +1,19 @@
 <ion-view title="Map">
-<ion-content>
-
-<div>
+<ion-content scrollbar-y="true" scroll="false">
+<center>
 	<div id="map" lat="0" lng="0" zoom="8" map>
 	</div>
 
-	<div width="80%" class="list list-inset" style="margin-left:10%;margin-right:10%;">
-		<label class="item item-input">
-			<input type="text" ng-model="user.desc" placeholder="Description">
-		</label>
-
-		<button class="button button-full button-light" ng-click="saveDetails()">Save</button>
-		<button class="button button-full button-light" ng-click="goToRestaurant()">Restaurant</button>
-
+	<div>
+<!-- 		<label class="item item-input button-custom">
+			<input type="text" ng-model="user.desc" placeholder="Description of Dummy Save Location Lat Long">
+		</label> -->
+		<!-- <button class="button button-full button-light" ng-click="saveDetails()">Save</button> -->
+		<button class="button button-custom button-light" ng-click="goToMenu()">Menu Item 1</button>
+		<button class="button button-custom button-light" ng-click="goToMenu()">Menu Item 2</button>
+		<button class="button button-custom button-light" ng-click="goToMenu()">Menu Item 3</button>
 	</div>
-</div>
-
+</center>
 </ion-content>
+
 </ion-view>

@@ -1,4 +1,4 @@
-app.controller('RestaurantController', function($scope, $state, $location) {
+app.controller('MenuController', function($scope, $state, $location) {
 	var ref = new Firebase('https://shining-fire-3905.firebaseio.com/Restaurants');
 
 	$scope.goToMap = function(){
@@ -36,8 +36,8 @@ app.controller('MapController', function($scope, $firebase, $ionicPopup, $state,
 	var firebaseObj = new Firebase("https://crackling-torch-9931.firebaseio.com//MapDetails");
 	var fb = $firebase(firebaseObj);
 
-	$scope.goToRestaurant = function() {
-		$state.go('restaurant')
+	$scope.goToMenu = function() {
+		$state.go('menu')
 	}
 
 	$scope.saveDetails = function() {
@@ -71,13 +71,23 @@ app.directive('map', function() {
 	return {
 		restrict: 'A',
 		link:function(scope, element, attrs){
+<<<<<<< HEAD
 
 			var initialLocation = new google.maps.LatLng(0,0);
 
+=======
+
+			var initialLocation;
+
+>>>>>>> d661a3c2e8429cdf0f2a11fb33e51bf9609f34cb
 			if(navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(position) {
 					initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
 					map.setCenter(initialLocation);
+					var marker = new google.maps.Marker({
+						position: initialLocation,
+						map: map
+					});
 				}, function() {
 					handleNoGeolocation(true);
 				});
@@ -86,37 +96,21 @@ app.directive('map', function() {
 			else {
 				handleNoGeolocation(false);
 			}
+<<<<<<< HEAD
 
 			//var latitude = position.coords.latitude;
 			//var longitude = position.coords.longitude;
 
+=======
+
+>>>>>>> d661a3c2e8429cdf0f2a11fb33e51bf9609f34cb
 			var zValue = scope.$eval(attrs.zoom);
-			//var lat = latitude;//scope.$eval(attrs.lat);
-			//var lng = longitude;//scope.$eval(attrs.lng);
-
-
-			//var myLatlng = new google.maps.LatLng(lat,lng),
 			var myLatlng = initialLocation,
 			mapOptions = {
 				zoom: zValue,
 				center: myLatlng
 			},
-			map = new google.maps.Map(element[0],mapOptions),
-			marker = new google.maps.Marker({
-				position: myLatlng,
-				map: map,
-				draggable:true
-			});
-
-			google.maps.event.addListener(marker, 'dragend', function(evt) {
-				console.log('Current Latitude:',evt.latLng.lat(),'Current Longitude:',evt.latLng.lng());
-			});
-
-			google.maps.event.addListener(marker, 'dragend', function(evt){
-				scope.$parent.user.latitude = evt.latLng.lat();
-				scope.$parent.user.longitude = evt.latLng.lng();
-				scope.$apply();
-			});
+			map = new google.maps.Map(element[0],mapOptions);
 
 		}
 	};

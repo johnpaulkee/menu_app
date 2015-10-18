@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ionic','firebase'])
+angular.module('menu-app.controllers', ['ionic','firebase'])
 
 .controller('MapCtrl', ['$scope', '$firebase', '$ionicPopup', function($scope, $firebase, $ionicPopup) {
 	$scope.user = {};
@@ -31,6 +31,13 @@ $scope.showAlert = function() {
 };
 
 }])
+
+.controller('RestaurantListCtrl', function($scope) {
+    $scope.restaurants = [
+        {name: "The Flying Pig"},
+        {name: "McDonalds"}
+    ];
+})
 
 .directive('map', function() {
 	return {

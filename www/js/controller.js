@@ -5,7 +5,14 @@ function sortObject(menuItems) {
 						 menuItems[item].itemDescription, menuItems[item].itemPrice]);
 	}
 	console.log(sortedMenu.length);
-	sortedMenu.sort(function(a, b) {return b[1].length - a[1].length});
+	sortedMenu.sort(function(a, b) {
+		if (!a[1]) {
+			a[1] = [];
+		}
+		if (!b[1]) {
+			b[1] = [];
+		}
+		return b[1].length - a[1].length});
 	var sortedMenuItems = {};
 	for (var i = 0; i < sortedMenu.length; i++) {
 		sortedMenuItems[sortedMenu[i][0]] = {
@@ -18,12 +25,16 @@ function sortObject(menuItems) {
 	return sortedMenuItems;
 }
 
-$scope.goBack = function() {
-  $ionicHistory.goBack();
-}
-
 function MyCtrl($scope, $ionicHistory) {
   $scope.myGoBack = function() {
     $ionicHistory.goBack();
   };
+}
+
+function getUidArray(uidObj) {
+	var uids = [];
+	for (uid in uidObj) {
+		uids.push(uidObj[uid]);
+	}
+	return uids;
 }

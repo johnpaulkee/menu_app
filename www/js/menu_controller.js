@@ -11,15 +11,18 @@ app.controller('MenuController', function($scope, $state, $location, $ionicPopup
 		var loginRef = new Firebase('https://shining-fire-3905.firebaseio.com/');
 		var authData = loginRef.getAuth();
 		if (authData) {
-			menuItem.uids.push(authData.uid);
-			var updatedItem = {
-				itemName: menuItem.itemName,
-				uids: menuItem.uids,
-				itemDescription: menuItem.itemDescription,
-				itemPrice: menuItem.itemPrice
-			};
-			console.log(updatedItem);
-			ref.child('menuItems').child(menuItem.itemName).set(updatedItem);
+			var uids = getUidArray(menuItem.uids);
+			if (uids.indexOf(authData.uid) === -1) {
+				uids.push(authData.uid);
+				var updatedItem = {
+					itemName: menuItem.itemName,
+					uids: uids,
+					itemDescription: menuItem.itemDescription,
+					itemPrice: menuItem.itemPrice
+				};
+				console.log(updatedItem);
+				ref.child('menuItems').child(menuItem.itemName).set(updatedItem);
+			}
 		}
 		else {
 			alert("You aren't signed in!");
@@ -35,6 +38,9 @@ app.controller('MenuController', function($scope, $state, $location, $ionicPopup
 				var restaurantName = $state.params.id;
 				var menuItems = results.menuItems;
 				var sortedMenuItems = sortObject(menuItems);
+				for (item in sortedMenuItems) {
+					sortedMenuItems[item].numLikes = getUidArray(sortedMenuItems[item].uids).length;
+				}
 				console.log(menuItems);
 
 				$scope.restaurantName = restaurantName;
@@ -46,18 +52,12 @@ app.controller('MenuController', function($scope, $state, $location, $ionicPopup
 				requestsRef = new Firebase('https://shining-fire-3905.firebaseio.com/requests');
 				requestsRef.push($state.params.id);
 				console.log("Requested " + $state.params.id);
-				window.setTimeout(function () {
-					$ionicPopup.alert({
-					  title: 'Failed to fetch menu',
-					  template: 'The menu for this restaurant is not available.'
-					});
-				}, 5000);
 			}
 	});
 
-	$scope.goToMap = function(){
-	      $state.go('map');
-	};
+	$scope.goBack = function() {
+	  $ionicHistory.goBack();
+	}
 
 	ionicMaterialInk.displayEffect();
 

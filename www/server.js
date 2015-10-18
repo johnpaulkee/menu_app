@@ -1,13 +1,31 @@
 var Firebase = require("firebase");
-var ref = new Firebase('https://shining-fire-3905.firebaseio.com/Restaurants/');
-
+var ref = new Firebase('https://shining-fire-3905.firebaseio.com/');
+console.log("Started server...");
 ref.child('requests').on('child_added', function (snapshot) {
     //Make request and pass response to parseMenu()
+	console.log(snapshot);
+	var request = require('request');
+	request.post(
+		{
+			url: 'https://api.locu.com/v2/venue/search',
+			body: JSON.stringify({
+				api_key: "bdeed6bf5eae32da59856986e058743fb11be970",
+				fields: ["name", "menus"],
+				venue_queries: [{
+					"name": snapshot.val()
+				}]
+			})
+		},
+		function (error, response, body) {
+			console.log(body);
+			parseMenu(JSON.parse(body));
+		}
+	);
 });
 
-function parseMenu(venues) {
-    for (var k = 0;k < venues.venues.length;k++) {
-        var data = venues.venues[k];
+function parseMenu(response) {
+    for (var k = 0;k < response.venues.length;k++) {
+        var data = response.venues[k];
         var menuItems = {};
         if (!data.menus) {
             continue;

@@ -26,6 +26,7 @@ app.directive('map', function() {
             var initialLocation;
 			var directionsService = new google.maps.DirectionsService;
 			var directionsDisplay = new google.maps.DirectionsRenderer;
+			var service = new google.maps.DistanceMatrixService;
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -98,10 +99,31 @@ app.directive('map', function() {
                                 });
 
                                 marker.addListener('click', function() {
+								
+/* 				service.getDistanceMatrix({
+				origins: initialLocation,
+				destinations: marker.position,
+				travelMode: google.maps.TravelMode.WALKING
+			  }, function(response, status) {
+				if (status !== google.maps.DistanceMatrixStatus.OK) {
+				  alert('Error was: ' + status);
+				} else {
+				  var originList = response.originAddresses;
+				  var destinationList = response.destinationAddresses;
+				  var outputDiv = document.getElementById('output');
+				  outputDiv.innerHTML = '';
+				}
+			  });	 */
+								
 									calculateAndDisplayRoute(directionsService, directionsDisplay);
                                     infowindow.setContent('<div><strong>' + marker.title + '</strong><br>' + marker.address + '<br>' + '<a href =\"/#/menu/' + marker.title + '\"> View Menu </a></span></div>');
                                     infowindow.open(map, marker);
 
+									
+	
+									
+									
+									
                                 });
 								
 								
@@ -118,6 +140,8 @@ app.directive('map', function() {
 									}
 								  });
 								}
+								
+
 
 
 

@@ -58,13 +58,17 @@ app.directive('map', function() {
 	return {
 		restrict: 'A',
 		link:function(scope, element, attrs){
-
-			var initialLocation = new google.maps.LatLng(0,0);
+			
+			var initialLocation;
 			
 			if(navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(position) {
 					initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
 					map.setCenter(initialLocation);
+					var marker = new google.maps.Marker({
+						position: initialLocation,
+						map: map
+					});
 				}, function() {
 					handleNoGeolocation(true);
 				});
@@ -74,36 +78,13 @@ app.directive('map', function() {
 				handleNoGeolocation(false);
 			}
 			
-			//var latitude = position.coords.latitude;
-			//var longitude = position.coords.longitude;
-			
 			var zValue = scope.$eval(attrs.zoom);
-			//var lat = latitude;//scope.$eval(attrs.lat);
-			//var lng = longitude;//scope.$eval(attrs.lng);
-
-
-			//var myLatlng = new google.maps.LatLng(lat,lng),
 			var myLatlng = initialLocation,
 			mapOptions = {
 				zoom: zValue,
 				center: myLatlng
 			},
-			map = new google.maps.Map(element[0],mapOptions),
-			marker = new google.maps.Marker({
-				position: myLatlng,
-				map: map,
-				draggable:true
-			});
-
-			google.maps.event.addListener(marker, 'dragend', function(evt) {
-				console.log('Current Latitude:',evt.latLng.lat(),'Current Longitude:',evt.latLng.lng());
-			});
-
-			google.maps.event.addListener(marker, 'dragend', function(evt){
-				scope.$parent.user.latitude = evt.latLng.lat();
-				scope.$parent.user.longitude = evt.latLng.lng();
-				scope.$apply();
-			});
+			map = new google.maps.Map(element[0],mapOptions);
 
 		}
 	};

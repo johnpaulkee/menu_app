@@ -1,17 +1,30 @@
 app.controller('MenuController', function($scope, $state, $location) {
+	var ref = new Firebase('https://shining-fire-3905.firebaseio.com/Restaurants');
+
 	$scope.goToMap = function(){
 	      $state.go('map');
 	};
 
+	$scope.likeItem = function(menuItem, restaurantName) {
+		menuItem.itemScore++;
+		var updatedItem = {
+			itemName: menuItem.itemName,
+			itemScore: menuItem.itemScore
+		};
+		console.log(menuItem.itemScore);
+		ref.child(restaurantName).child("menuItems").child(menuItem.itemName).set(updatedItem);
+	}
+
 	console.log($state.params.name);
 
-	var ref = new Firebase('https://shining-fire-3905.firebaseio.com/Restaurants');
 	ref.once('value', function(snapshot) {
 			var results = snapshot.exportVal();
 			console.log(results[$state.params.name]);
 			if (results[$state.params.name]) {
 				var menuItems = results[$state.params.name].menuItems;
+				var restaurantName = results[$state.params.name].restaurantName;
 				$scope.menuItems = menuItems;
+				$scope.restaurantName = restaurantName;
 				$scope.$apply();
 			}
 	});
@@ -58,9 +71,9 @@ app.directive('map', function() {
 	return {
 		restrict: 'A',
 		link:function(scope, element, attrs){
-			
+
 			var initialLocation;
-			
+
 			if(navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(position) {
 					initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -77,17 +90,12 @@ app.directive('map', function() {
 			else {
 				handleNoGeolocation(false);
 			}
-			
+
+			var zValue = scope.$eval(attrs.zoom);
 			var myLatlng = initialLocation,
 			mapOptions = {
-				zoom: 15,
-				center: myLatlng,
-				disableDefaultUI:true,
-				mapTypeControlOptions: {
-					mapTypeIds: [google.maps.MapTypeId.ROADMAP],
-					
-				}
-				
+				zoom: zValue,
+				center: myLatlng
 			},
 			map = new google.maps.Map(element[0],mapOptions);
 

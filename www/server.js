@@ -28,28 +28,29 @@ function parseMenu(response) {
     for (var k = 0;k < response.venues.length;k++) {
         var data = response.venues[k];
         var menuItems = {};
-        if (!data.menus) {
-            continue;
-        }
-        for (var j = 0;j < data.menus.length;j++) {
-            var contents = data.menus[j].sections[0].subsections[0].contents;
-            for (var i = 0;i < contents.length; i++) {
-                if (contents[i].type === "ITEM"){
-                    var itemName = contents[i].name.replace(/\./g,'%2E').replace(/\//g,'%2F');
-                    menuItems[itemName] = {
-                        itemName: itemName,
-                        itemScore: 0
+        if (data.menus) {
+            for (var j = 0;j < data.menus.length;j++) {
+                if (data.menus[j].sections[0].subsections[0]) {
+                    var contents = data.menus[j].sections[0].subsections[0].contents;
+                        for (var i = 0;i < contents.length; i++) {
+                            if (contents[i].type === "ITEM"){
+                                var itemName = contents[i].name.replace(/\./g,'%2E').replace(/\//g,'%2F');
+                                menuItems[itemName] = {
+                                    itemName: itemName,
+                                    itemScore: 0
+                                }
+                            }
+                        }
                     }
+
+                    var restaurant = {
+                        menuItems: menuItems,
+                        restuarantName: data.name.replace(/\./g,'%2E').replace(/\\/g,'%5C')
+                    }
+
+                    var ref = new Firebase('https://shining-fire-3905.firebaseio.com/Restaurants/' + restaurant.restuarantName);
+                    ref.set(restaurant);
                 }
-            }
         }
-
-        var restaurant = {
-            menuItems: menuItems,
-            restuarantName: data.name.replace(/\./g,'%2E').replace(/\\/g,'%5C')
-        }
-
-        var ref = new Firebase('https://shining-fire-3905.firebaseio.com/Restaurants/' + restaurant.restuarantName);
-        ref.set(restaurant);
     }
 }

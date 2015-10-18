@@ -76,11 +76,7 @@ p {
 .app-icon {
     background-color: #fff;
     background: url('../img/logo.png') center;
-    -ms-transform: rotate(180deg); /* IE 9 */
-    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
-    transform: rotate(180deg);
     background-size: cover;
-    border-radius: 50%;
     height: 125px;
     margin: 0 auto;
     width: 125px;

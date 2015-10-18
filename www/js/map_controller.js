@@ -61,13 +61,13 @@ app.directive('map', function() {
 							}
 						  }
 						}
-<<<<<<< Updated upstream
 
-=======
+
+
 						
 					var infowindow = new google.maps.InfoWindow();
 						
->>>>>>> Stashed changes
+
 					function createMarkers(places) {
 					  var bounds = new google.maps.LatLngBounds();
 					  var placesList = document.getElementById('places');
@@ -105,7 +105,6 @@ app.directive('map', function() {
 						  });
 
 
-<<<<<<< Updated upstream
 						marker.addListener('click', function() {
 						 window.location.href = "testHTML.html";
 					  });
@@ -115,7 +114,6 @@ app.directive('map', function() {
             '<button class="button button-custom button-card button-light" id="placeTab">' +
             place.name + '<br>' + place.vicinity
             '</button> <br> </center>';
-=======
 
 		
 
@@ -127,7 +125,7 @@ app.directive('map', function() {
 						  }); */
 						if(placesList){
 						placesList.innerHTML += '<li id="placeTab">' + place.name + '</li>';
->>>>>>> Stashed changes
+
 						}
 
 						bounds.extend(place.geometry.location);

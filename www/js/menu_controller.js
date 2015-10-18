@@ -11,7 +11,9 @@ app.controller('MenuController', function($scope, $state, $location, ionicMateri
 		menuItem.itemScore++;
 		var updatedItem = {
 			itemName: menuItem.itemName,
-			itemScore: menuItem.itemScore
+			itemScore: menuItem.itemScore,
+			itemDescription: menuItem.itemDescription,
+			itemPrice: menuItem.itemPrice
 		};
 		console.log(updatedItem);
 		ref.child('menuItems').child(menuItem.itemName).set(updatedItem);
@@ -30,6 +32,7 @@ app.controller('MenuController', function($scope, $state, $location, ionicMateri
 
 				$scope.restaurantName = restaurantName;
 				$scope.menuItems = sortedMenuItems;
+				console.log(sortedMenuItems);
 				$scope.$evalAsync();
 			}
 			else {

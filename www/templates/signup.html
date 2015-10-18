@@ -1,0 +1,21 @@
+<ion-view title="Sign Up">
+  <ion-content style="background: url(img/login.jpg); background-size: cover;  background-repeat: no-repeat;
+    background-position: center left; " scroll="false">
+    <div class="hero no-header flat">
+      <div class="content">
+        <div class="app-icon"></div>
+      </div>
+    </div>
+    <center>
+      <div class="list">
+        <h1> Please fill in your user information </h1>
+        <ion-md-input ng-model="data.email" placeholder="email" highlight-color="balanced" type="email" class="button-login"></ion-md-input>
+        <ion-md-input ng-model="data.password" placeholder="password" highlight-color="balanced" type="password" class="button-login"></ion-md-input>
+        <ion-md-input ng-model="data.rep_password" placeholder="password" highlight-color="balanced" type="password" class="button-login"></ion-md-input>
+      </div>
+      <div class="padding">
+        <button class="button button-login button-assertive ink" ng-click="signupEmail()"> Confirm </button>
+      </div>
+    </center>
+  </ion-content>
+</ion-view>

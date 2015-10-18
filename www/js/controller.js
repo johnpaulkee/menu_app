@@ -1,4 +1,4 @@
-app.controller('RestaurantController', function($scope, $state, $location) {
+app.controller('MenuController', function($scope, $state, $location) {
 	$scope.goToMap = function(){
 	      $state.go('map');
 	};
@@ -10,8 +10,8 @@ app.controller('MapController', function($scope, $firebase, $ionicPopup, $state,
 	var firebaseObj = new Firebase("https://crackling-torch-9931.firebaseio.com//MapDetails");
 	var fb = $firebase(firebaseObj);
 
-	$scope.goToRestaurant = function() {
-		$state.go('restaurant')
+	$scope.goToMenu = function() {
+		$state.go('menu')
 	}
 
 	$scope.saveDetails = function() {

@@ -10,7 +10,7 @@ app.controller('MenuController', function($scope, $state, $location, $ionicPopup
 	$scope.likeItem = function(menuItem, restaurantName) {
 		var loginRef = new Firebase('https://shining-fire-3905.firebaseio.com/');
 		var authData = loginRef.getAuth();
-		if (authData) {
+		if (authData && !menuItem.loadFailed) {
 			var uids = getUidArray(menuItem.uids);
 			if (uids.indexOf(authData.uid) === -1) {
 				uids.push(authData.uid);
@@ -52,6 +52,16 @@ app.controller('MenuController', function($scope, $state, $location, $ionicPopup
 				requestsRef = new Firebase('https://shining-fire-3905.firebaseio.com/requests');
 				requestsRef.push($state.params.id);
 				console.log("Requested " + $state.params.id);
+				window.setTimeout(function() {
+					$scope.menuItems = [ {
+						itemName: "Menu Load Failed",
+						uids: [],
+						itemDescription: "The menu failed to load.",
+						itemPrice: 3.49,
+						loadFailed: true
+					}];
+					$scope.$evalAsync();
+				}, 5000);
 			}
 	});
 

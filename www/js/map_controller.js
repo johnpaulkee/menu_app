@@ -24,9 +24,12 @@ app.directive('map', function() {
         restrict: 'A',
         link: function(scope, element, attrs) {
             var initialLocation;
+<<<<<<< HEAD
 			var directionsService = new google.maps.DirectionsService;
 			var directionsDisplay = new google.maps.DirectionsRenderer;
 			var service = new google.maps.DistanceMatrixService;
+=======
+>>>>>>> 78ca7006ad510afe69911df3df06c92d8de94ac0
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -37,7 +40,6 @@ app.directive('map', function() {
                         map: map
                     });
                     var service = new google.maps.places.PlacesService(map);
-					directionsDisplay.setMap(map);
                     service.nearbySearch({
                         location: initialLocation,
                         radius: 1000,
@@ -99,6 +101,7 @@ app.directive('map', function() {
                                 });
 
                                 marker.addListener('click', function() {
+<<<<<<< HEAD
 								
 /* 				service.getDistanceMatrix({
 				origins: initialLocation,
@@ -142,6 +145,16 @@ app.directive('map', function() {
 								}
 								
 
+=======
+                                    infowindow.setContent('<div><strong>' + marker.title + '</strong><br>' + marker.address + '<br>' + '<a href =\"/#/menu/' + marker.title + '\"> View Menu </a></span></div>');
+                                    infowindow.open(map, marker);
+
+                                    /* 	document.getElementsByClassName("js-menu")[0].addEventListener('click', function(){
+                                    	alert(marker.title +"  "+marker.address+"  " + marker.position);
+                                    	openMap(marker.title,marker.address);
+                                    	});*/
+                                });
+>>>>>>> 78ca7006ad510afe69911df3df06c92d8de94ac0
 
 
 
@@ -173,7 +186,6 @@ app.directive('map', function() {
                     }
                 },
                 map = new google.maps.Map(element[0], mapOptions);
-				
         }
     };
 });

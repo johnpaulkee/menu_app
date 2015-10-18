@@ -6,13 +6,9 @@ function sortObject(menuItems) {
 	}
 	console.log(sortedMenu.length);
 	sortedMenu.sort(function(a, b) {
-		if (!a[1]) {
-			a[1] = [];
-		}
-		if (!b[1]) {
-			b[1] = [];
-		}
-		return b[1].length - a[1].length});
+		a = getUidArray(a[1]);
+		b = getUidArray(b[1]);
+		return b.length - a.length});
 	var sortedMenuItems = {};
 	for (var i = 0; i < sortedMenu.length; i++) {
 		sortedMenuItems[sortedMenu[i][0]] = {

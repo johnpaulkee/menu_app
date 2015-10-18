@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ionic','firebase'])
+angular.module('menu-app.controllers', ['ionic','firebase'])
 
 .controller('MapCtrl', ['$scope', '$firebase', '$ionicPopup', function($scope, $firebase, $ionicPopup) {
 	$scope.user = {};

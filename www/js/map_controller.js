@@ -2,6 +2,7 @@ app.controller('MapController', function($scope, $firebase, $ionicPopup, $state,
 	$scope.user = {};
 	var firebaseObj = new Firebase("https://crackling-torch-9931.firebaseio.com/MapDetails");
 	var fb = $firebase(firebaseObj);
+  
 	$scope.goToMenu = function() {
 		$state.go('menu')
 	};
@@ -9,24 +10,6 @@ app.controller('MapController', function($scope, $firebase, $ionicPopup, $state,
 	$scope.goToLogin = function() {
 		$state.go('login')
 	};
-
-	$scope.saveDetails = function() {
-		var lat = $scope.user.latitude;
-		var lgt = $scope.user.longitude;
-		var des = $scope.user.desc;
-
-    // Code to write to Firebase will be here
-    fb.$push({
-    	latitude: lat,
-    	longitude: lgt,
-    	description: des
-    }).then(function(ref) {
-    	$scope.user = {};
-    	$scope.showAlert();
-    }, function(error) {
-    	console.log("Error:", error);
-    });
-	}
 
 	$scope.showAlert = function() {
 		$ionicPopup.alert({

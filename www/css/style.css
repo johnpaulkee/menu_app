@@ -90,6 +90,5 @@ p {
 }
 
 .badge-custom {
-    float: right;
-    margin-right: 50px;
+    margin-top: 15px;
 }

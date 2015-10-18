@@ -1,7 +1,5 @@
 app.controller('MapController', function($scope, $firebase, $ionicPopup, $state, $location, ionicMaterialInk) {
     $scope.user = {};
-    var firebaseObj = new Firebase("https://crackling-torch-9931.firebaseio.com/MapDetails");
-    var fb = $firebase(firebaseObj);
 
     $scope.goToMenu = function() {
         $state.go('menu')
@@ -155,3 +153,10 @@ app.directive('map', function() {
         }
     };
 });
+
+
+function ContentController($scope, $ionicSideMenuDelegate) {
+  $scope.toggleLeft = function() {
+    $ionicSideMenuDelegate.toggleLeft();
+  };
+}

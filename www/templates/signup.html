@@ -1,10 +1,4 @@
 <ion-view>
-
-  <ion-nav-bar class="bar-stable" align-title="left" no-tap-scroll="true">
-    <button class="button button-positive">
-       <i class="icon ion-arrow-left-c"></i>
-    </button>
-  </ion-nav-bar>
   <ion-nav-view name="main"></ion-nav-view>
 
   <ion-content style="background: url(img/login.jpg); background-size: cover;  background-repeat: no-repeat;
@@ -16,7 +10,8 @@
     </div>
     <center>
       <div class="list">
-        <h1> Please fill in your user information </h1>
+        <br>
+        <h3> Please fill in your user information </h3>
         <ion-md-input ng-model="data.email" placeholder="email" highlight-color="balanced" type="email" class="input-login-forms"></ion-md-input>
         <ion-md-input ng-model="data.password" placeholder="password" highlight-color="balanced" type="password" class="input-login-forms"></ion-md-input>
         <ion-md-input ng-model="data.rep_password" placeholder="repeat password" highlight-color="balanced" type="password" class="input-login-forms"></ion-md-input>

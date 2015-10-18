@@ -1,17 +1,17 @@
 <ion-view title="Menu">
     <ion-content>
 
-        <ion-list>
-            <div class="item item-button-right" ng-repeat="menuItem in menuItems">
+        <div class="list card" ng-repeat="menuItem in menuItems">
+            <div class="item item-button-right">
                 {{menuItem.itemName}}
-                <button class="button button-positive" style="margin: 8px auto" ng-click="likeItem(menuItem, restaurantName)">
+                <button class="button button-positive" ng-click="likeItem(menuItem, restaurantName)">
                     <i class="icon ion-android-happy"></i>
                 </button>
                 <!-- <button class="button button-balanced" style="float: right" ng-click="likeItem(menuItem, restaurantName)">Like</button> -->
                 <!-- <div style="float: right;margin-right: 30px;margin-top: 8px">{{menuItem.itemScore}} likes</div> -->
-                <span class="badge badge-balanced" style="float: right;margin-right: 50px;margin-top: 8px">{{menuItem.itemScore}} likes</span>
+                <span class="badge badge-balanced badge-custom">{{menuItem.itemScore}} likes</span>
             </div>
-        </ion-list>
+        </div>
 
         <button class="button button-full button-positive" ng-click="goToMap()">Map</button>
 

@@ -23,19 +23,7 @@ app.controller('MenuController', function($scope, $state, $location) {
 			if (results[$state.params.name]) {
 				var restaurantName = results[$state.params.name].restaurantName;
 				var menuItems = results[$state.params.name].menuItems;
-				var sortedMenu = [];
-				for (var item in menuItems) {
-				    sortedMenu.push([menuItems[item].itemName, menuItems[item].itemScore]);
-				}
-			    console.log(sortedMenu.length);
-				sortedMenu.sort(function(a, b) {return b[1] - a[1]});
-				var sortedMenuItems = {};
-				for (var i = 0; i < sortedMenu.length; i++) {
-					sortedMenuItems[sortedMenu[i][0]] = {
-						itemName: sortedMenu[i][0],
-						itemScore: sortedMenu[i][1]
-					}
-				}
+				var sortedMenuItems = sortObject(menuItems);
 				console.log(menuItems);
 
 				$scope.restaurantName = restaurantName;
@@ -86,9 +74,9 @@ app.directive('map', function() {
 	return {
 		restrict: 'A',
 		link:function(scope, element, attrs){
-			
+
 			var initialLocation;
-			
+
 			if(navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(position) {
 					initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -105,7 +93,7 @@ app.directive('map', function() {
 			else {
 				handleNoGeolocation(false);
 			}
-			
+
 			var myLatlng = initialLocation,
 			mapOptions = {
 				zoom: 15,
@@ -113,12 +101,29 @@ app.directive('map', function() {
 				disableDefaultUI:true,
 				mapTypeControlOptions: {
 					mapTypeIds: [google.maps.MapTypeId.ROADMAP],
-					
+
 				}
-				
+
 			},
 			map = new google.maps.Map(element[0],mapOptions);
 
 		}
 	};
 });
+
+function sortObject(menuItems) {
+	var sortedMenu = [];
+	for (var item in menuItems) {
+		sortedMenu.push([menuItems[item].itemName, menuItems[item].itemScore]);
+	}
+	console.log(sortedMenu.length);
+	sortedMenu.sort(function(a, b) {return b[1] - a[1]});
+	var sortedMenuItems = {};
+	for (var i = 0; i < sortedMenu.length; i++) {
+		sortedMenuItems[sortedMenu[i][0]] = {
+			itemName: sortedMenu[i][0],
+			itemScore: sortedMenu[i][1]
+		}
+	}
+	return sortedMenuItems;
+}

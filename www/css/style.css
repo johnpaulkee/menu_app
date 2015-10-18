@@ -9,7 +9,7 @@
 	margin: 8px auto;
 }
 
-.list-custom {
-    width: 90%;
-    margin: 8px auto;
+.badge-custom {
+    float: right;
+    margin-right: 50px;
 }

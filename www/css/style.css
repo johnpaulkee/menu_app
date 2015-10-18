@@ -87,7 +87,9 @@ p {
 .social-login {
     position: fixed;
     bottom: 0;
+}
 
 .badge-custom {
     float: right;
     margin-right: 50px;
+}

@@ -11,7 +11,7 @@ app.controller('SignUpController', function($scope, $firebase, $ionicPopup, $sta
 
 	$scope.signupEmail = function(){
 
-		var ref = new Firebase("https://fmenu.firebaseio.com");
+		var ref = new Firebase("https://shining-fire-3905.firebaseio.com");
 		var user_email = $scope.data.email
 		var user_password = $scope.data.password
 		var user_rep_password = $scope.data.rep_password

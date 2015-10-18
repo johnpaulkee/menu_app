@@ -1,4 +1,4 @@
-app.controller('MenuController', function($scope, $state, $location) {
+app.controller('MenuController', function($scope, $state, $location, ionicMaterialInk) {
 	$scope.goToMap = function(){
 	      $state.go('map');
 	};
@@ -15,12 +15,13 @@ app.controller('MenuController', function($scope, $state, $location) {
 				$scope.$apply();
 			}
 	});
+	ionicMaterialInk.displayEffect();
 })
 
-app.controller('MapController', function($scope, $firebase, $ionicPopup, $state, $location) {
+app.controller('MapController', function($scope, $firebase, $ionicPopup, $state, $location, ionicMaterialInk) {
 	$scope.user = {};
 
-	var firebaseObj = new Firebase("https://crackling-torch-9931.firebaseio.com//MapDetails");
+	var firebaseObj = new Firebase("https://crackling-torch-9931.firebaseio.com/MapDetails");
 	var fb = $firebase(firebaseObj);
 
 	$scope.goToMenu = function() {
@@ -51,16 +52,15 @@ app.controller('MapController', function($scope, $firebase, $ionicPopup, $state,
 			template: 'Your location has been saved!!'
 		});
 	};
-
+	
+	ionicMaterialInk.displayEffect();
 })
 
 app.directive('map', function() {
 	return {
 		restrict: 'A',
-		link:function(scope, element, attrs){
-
+		link:function(scope, element, attrs) {
 			var initialLocation = new google.maps.LatLng(0,0);
-			
 			if(navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(position) {
 					initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -69,7 +69,6 @@ app.directive('map', function() {
 					handleNoGeolocation(true);
 				});
 			}
-			// Browser doesn't support Geolocation
 			else {
 				handleNoGeolocation(false);
 			}

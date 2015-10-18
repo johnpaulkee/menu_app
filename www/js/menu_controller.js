@@ -1,7 +1,7 @@
 app.controller('MenuController', function($scope, $state, $location, ionicMaterialInk) {
 	console.log('Controller opened');
 	var ref = new Firebase('https://shining-fire-3905.firebaseio.com/Restaurants/' +
-						   $state.params.name);
+						   $state.params.id);
 
 	$scope.goToMap = function() {
 	      $state.go('map');
@@ -17,13 +17,13 @@ app.controller('MenuController', function($scope, $state, $location, ionicMateri
 		ref.child('menuItems').child(menuItem.itemName).set(updatedItem);
 	}
 
-	console.log($state.params.name);
+	console.log($state.params.id);
 
 	ref.on('value', function(snapshot) {
 			var results = snapshot.exportVal();
 			console.log(results);
 			if (results) {
-				var restaurantName = $state.params.name;
+				var restaurantName = $state.params.id;
 				var menuItems = results.menuItems;
 				var sortedMenuItems = sortObject(menuItems);
 				console.log(menuItems);
@@ -34,7 +34,8 @@ app.controller('MenuController', function($scope, $state, $location, ionicMateri
 			}
 			else {
 				requestsRef = new Firebase('https://shining-fire-3905.firebaseio.com/requests');
-				requestsRef.push($state.params.name);
+				requestsRef.push($state.params.id);
+				console.log("Requested " + $state.params.id);
 			}
 	});
 

@@ -114,7 +114,7 @@ app.directive('map', function() {
             '<button class="button button-custom button-card button-light" id="placeTab">' +
             place.name + '<br>' + place.vicinity
             '</button> <br> </center>';
-
+						}
 		
 
 

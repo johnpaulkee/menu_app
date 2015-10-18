@@ -46,12 +46,31 @@ app.directive('map', function() {
 		restrict: 'A',
 		link:function(scope, element, attrs){
 
+			var initialLocation = new google.maps.LatLng(0,0);
+			
+			if(navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+					initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+					map.setCenter(initialLocation);
+				}, function() {
+					handleNoGeolocation(true);
+				});
+			}
+			// Browser doesn't support Geolocation
+			else {
+				handleNoGeolocation(false);
+			}
+			
+			//var latitude = position.coords.latitude;
+			//var longitude = position.coords.longitude;
+			
 			var zValue = scope.$eval(attrs.zoom);
-			var lat = scope.$eval(attrs.lat);
-			var lng = scope.$eval(attrs.lng);
+			//var lat = latitude;//scope.$eval(attrs.lat);
+			//var lng = longitude;//scope.$eval(attrs.lng);
 
 
-			var myLatlng = new google.maps.LatLng(lat,lng),
+			//var myLatlng = new google.maps.LatLng(lat,lng),
+			var myLatlng = initialLocation,
 			mapOptions = {
 				zoom: zValue,
 				center: myLatlng

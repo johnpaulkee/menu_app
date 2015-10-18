@@ -71,15 +71,9 @@ app.directive('map', function() {
 	return {
 		restrict: 'A',
 		link:function(scope, element, attrs){
-<<<<<<< HEAD
-
-			var initialLocation = new google.maps.LatLng(0,0);
-
-=======
 
 			var initialLocation;
 
->>>>>>> d661a3c2e8429cdf0f2a11fb33e51bf9609f34cb
 			if(navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(position) {
 					initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -96,14 +90,7 @@ app.directive('map', function() {
 			else {
 				handleNoGeolocation(false);
 			}
-<<<<<<< HEAD
 
-			//var latitude = position.coords.latitude;
-			//var longitude = position.coords.longitude;
-
-=======
-
->>>>>>> d661a3c2e8429cdf0f2a11fb33e51bf9609f34cb
 			var zValue = scope.$eval(attrs.zoom);
 			var myLatlng = initialLocation,
 			mapOptions = {

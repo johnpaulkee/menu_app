@@ -37,7 +37,9 @@ function parseMenu(response) {
                                 var itemName = contents[i].name.replace(/\./g,'%2E').replace(/\//g,'%2F');
                                 menuItems[itemName] = {
                                     itemName: itemName,
-                                    itemScore: 0
+                                    itemScore: 0,
+									itemPrice: contents[i].price,
+									itemDescription: contents[i].description
                                 }
                             }
                         }

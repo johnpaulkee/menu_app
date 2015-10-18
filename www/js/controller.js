@@ -1,19 +1,42 @@
 app.controller('MenuController', function($scope, $state, $location, ionicMaterialInk) {
-	console.log($state.params.name);
 	var ref = new Firebase('https://shining-fire-3905.firebaseio.com/Restaurants');
-	ref.once('value', function(snapshot) {
+
+	$scope.goToMap = function() {
+	      $state.go('map');
+	};
+
+	$scope.likeItem = function(menuItem, restaurantName) {
+		menuItem.itemScore++;
+		var updatedItem = {
+			itemName: menuItem.itemName,
+			itemScore: menuItem.itemScore
+		};
+		console.log(updatedItem);
+		ref.child(restaurantName).child("menuItems").child(menuItem.itemName).set(updatedItem);
+	}
+
+	console.log($state.params.name);
+
+	ref.on('value', function(snapshot) {
 			var results = snapshot.exportVal();
 			console.log(results[$state.params.name]);
 			if (results[$state.params.name]) {
+				var restaurantName = results[$state.params.name].restaurantName;
 				var menuItems = results[$state.params.name].menuItems;
-				$scope.menuItems = menuItems;
+				var sortedMenuItems = sortObject(menuItems);
+				console.log(menuItems);
+
+				$scope.restaurantName = restaurantName;
+				$scope.menuItems = sortedMenuItems;
 				$scope.$apply();
 			}
 	});
 	$scope.goToMap = function(){
 	      $state.go('map');
 	};
+
 	ionicMaterialInk.displayEffect();
+
 })
 
 app.controller('LoginController', function($scope, $firebase, $ionicPopup, $state, $location, ionicMaterialInk) {
@@ -72,7 +95,7 @@ app.controller('MapController', function($scope, $firebase, $ionicPopup, $state,
 app.directive('map', function() {
 	return {
 		restrict: 'A',
-		link:function(scope, element, attrs){
+		link:function(scope, element, attrs) {
 			var initialLocation;
 			if(navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(position) {
@@ -89,15 +112,33 @@ app.directive('map', function() {
 			else {
 				handleNoGeolocation(false);
 			}
-
-			var zValue = scope.$eval(attrs.zoom);
 			var myLatlng = initialLocation,
 			mapOptions = {
-				zoom: zValue,
-				center: myLatlng
+				zoom: 15,
+				center: myLatlng,
+				disableDefaultUI:true,
+				mapTypeControlOptions: {
+					mapTypeIds: [google.maps.MapTypeId.ROADMAP],
+				}
 			},
 			map = new google.maps.Map(element[0],mapOptions);
-
 		}
 	};
 });
+
+function sortObject(menuItems) {
+	var sortedMenu = [];
+	for (var item in menuItems) {
+		sortedMenu.push([menuItems[item].itemName, menuItems[item].itemScore]);
+	}
+	console.log(sortedMenu.length);
+	sortedMenu.sort(function(a, b) {return b[1] - a[1]});
+	var sortedMenuItems = {};
+	for (var i = 0; i < sortedMenu.length; i++) {
+		sortedMenuItems[sortedMenu[i][0]] = {
+			itemName: sortedMenu[i][0],
+			itemScore: sortedMenu[i][1]
+		}
+	}
+	return sortedMenuItems;
+}

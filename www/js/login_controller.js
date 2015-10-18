@@ -14,7 +14,7 @@ app.controller('LoginController', function($scope, $firebase, $ionicPopup, $stat
   };
 
   $scope.loginEmail = function(){
-    var ref = new Firebase("https://fmenu.firebaseio.com");
+    var ref = new Firebase("https://shining-fire-3905.firebaseio.com");
     ref.authWithPassword({
       email    : $scope.data.email,
       password : $scope.data.password
@@ -35,7 +35,7 @@ app.controller('LoginController', function($scope, $firebase, $ionicPopup, $stat
 
   $scope.loginFacebook = function(){
 
-    var ref = new Firebase("https://fmenu.firebaseio.com");
+    var ref = new Firebase("https://shining-fire-3905.firebaseio.com");
     if(ionic.Platform.isWebView()){
 
       $cordovaFacebook.login(["public_profile", "email"]).then(function(success){

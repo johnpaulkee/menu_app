@@ -61,27 +61,51 @@ app.directive('map', function() {
 							}
 						  }
 						}
+<<<<<<< Updated upstream
 
+=======
+						
+					var infowindow = new google.maps.InfoWindow();
+						
+>>>>>>> Stashed changes
 					function createMarkers(places) {
 					  var bounds = new google.maps.LatLngBounds();
 					  var placesList = document.getElementById('places');
-
+						console.log(places);
 					  for (var i = 0, place; place = places[i]; i++) {
+					  (function () {
 						var image = {
 						  url: place.icon,
+						  
 						  size: new google.maps.Size(71, 71),
 						  origin: new google.maps.Point(0, 0),
 						  anchor: new google.maps.Point(17, 34),
 						  scaledSize: new google.maps.Size(25, 25)
 						};
-
+						
 						var marker = new google.maps.Marker({
 						  map: map,
 						  icon: image,
 						  title: place.name,
-						  position: place.geometry.location
+						  position: place.geometry.location,
+						  address: place.formatted_address,
+						  id: place.id
 						});
+						
+						marker.setPlace({
+						  placeId: place.id,
+						  location: place.geometry.location
+						});
+						
+						  marker.addListener('click', function() {
+						  		infowindow.setContent('<div><strong>' + marker.title + '</strong><br>' +
+			'Place ID: ' + marker.placeId + '<br>' +
+			marker.id);
+							infowindow.open(map, marker);
+						  });
 
+
+<<<<<<< Updated upstream
 						marker.addListener('click', function() {
 						 window.location.href = "testHTML.html";
 					  });
@@ -91,10 +115,24 @@ app.directive('map', function() {
             '<button class="button button-custom button-card button-light" id="placeTab">' +
             place.name + '<br>' + place.vicinity
             '</button> <br> </center>';
+=======
+
+		
+
+
+
+
+						 /*  google.maps.event.addListener(marker, 'click', function() {
+							alert(place[i]);
+						  }); */
+						if(placesList){
+						placesList.innerHTML += '<li id="placeTab">' + place.name + '</li>';
+>>>>>>> Stashed changes
 						}
 
 						bounds.extend(place.geometry.location);
-					  }
+					  }())
+					   }
 					  map.fitBounds(bounds);
 
 					  if(document.getElementById('placeTab')){
@@ -103,6 +141,7 @@ app.directive('map', function() {
 						                window.alert('Map was clicked!');
 						        });
 						}
+						
 					}
 				}, function() {
 					handleNoGeolocation(true);

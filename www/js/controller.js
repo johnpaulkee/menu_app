@@ -1,9 +1,18 @@
-angular.module('menu-app.controllers', ['ionic','firebase'])
+app.controller('RestaurantController', function($scope, $state, $location) {
+	$scope.goToMap = function(){
+	      $state.go('map');
+	};
+})
 
-.controller('MapCtrl', ['$scope', '$firebase', '$ionicPopup', function($scope, $firebase, $ionicPopup) {
+app.controller('MapController', function($scope, $firebase, $ionicPopup, $state, $location) {
 	$scope.user = {};
+
 	var firebaseObj = new Firebase("https://crackling-torch-9931.firebaseio.com//MapDetails");
 	var fb = $firebase(firebaseObj);
+
+	$scope.goToRestaurant = function() {
+		$state.go('restaurant')
+	}
 
 	$scope.saveDetails = function() {
 		var lat = $scope.user.latitude;
@@ -21,18 +30,18 @@ angular.module('menu-app.controllers', ['ionic','firebase'])
     }, function(error) {
     	console.log("Error:", error);
     });
-}
+	}
 
-$scope.showAlert = function() {
-	$ionicPopup.alert({
-		title: 'iMapApp',
-		template: 'Your location has been saved!!'
-	});
-};
+	$scope.showAlert = function() {
+		$ionicPopup.alert({
+			title: 'Map',
+			template: 'Your location has been saved!!'
+		});
+	};
 
-}])
+})
 
-.directive('map', function() {
+app.directive('map', function() {
 	return {
 		restrict: 'A',
 		link:function(scope, element, attrs){

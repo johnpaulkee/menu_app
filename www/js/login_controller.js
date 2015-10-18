@@ -8,17 +8,9 @@ app.controller('LoginController', function($scope, $firebase, $ionicPopup, $stat
     $state.go('map')
   };
 
-  var ref = new Firebase("https://fmenu.firebaseio.com");
-  ref.createUser({
-    email    : "example@firebase.com",
-    password : "password"
-  }, function(error, userData) {
-    if (error) {
-      console.log("Error creating user:", error);
-    } else {
-      console.log("Successfully created user account with uid:", userData.uid);
-    }
-  });
+  $scope.goToSignUp = function() {
+    $state.go('signup')
+  };
 
   ionicMaterialInk.displayEffect();
 })

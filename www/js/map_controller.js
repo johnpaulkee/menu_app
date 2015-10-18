@@ -88,7 +88,7 @@ app.directive('map', function() {
 						if (placesList) {
 						placesList.innerHTML +=
             '<center>' +
-            '<button class="button button-custom button-card button-light" id="placeTab">' +
+            '<button class="button button-custom button-card button-light ink" id="placeTab">' +
             place.name + '<br>' + place.vicinity
             '</button> <br> </center>';
 						}

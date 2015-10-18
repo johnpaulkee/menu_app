@@ -15,6 +15,9 @@ app.controller('LoginController', function($scope, $firebase, $ionicPopup, $stat
 
   $scope.loginEmail = function(){
     var ref = new Firebase("https://shining-fire-3905.firebaseio.com");
+    var user_email = $scope.data.email;
+    var user_password = $scope.data.email;
+
     ref.authWithPassword({
       email    : $scope.data.email,
       password : $scope.data.password
@@ -23,7 +26,7 @@ app.controller('LoginController', function($scope, $firebase, $ionicPopup, $stat
         console.log("Login Failed!", error);
         $ionicPopup.alert({
           title: 'Login Failed',
-          template: 'Your username or password is wrong'
+          template: 'Your email or password is wrong'
         });
       } else {
         console.log("Authenticated successfully with payload:", authData);

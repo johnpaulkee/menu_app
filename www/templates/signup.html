@@ -1,4 +1,12 @@
-<ion-view title="Sign Up">
+<ion-view>
+
+  <ion-nav-bar class="bar-stable" align-title="left" no-tap-scroll="true">
+    <button class="button button-positive">
+       <i class="icon ion-arrow-left-c"></i>
+    </button>
+  </ion-nav-bar>
+  <ion-nav-view name="main"></ion-nav-view>
+
   <ion-content style="background: url(img/login.jpg); background-size: cover;  background-repeat: no-repeat;
     background-position: center left; " scroll="false">
     <div class="hero no-header flat">
@@ -9,12 +17,12 @@
     <center>
       <div class="list">
         <h1> Please fill in your user information </h1>
-        <ion-md-input ng-model="data.email" placeholder="email" highlight-color="balanced" type="email" class="button-login"></ion-md-input>
-        <ion-md-input ng-model="data.password" placeholder="password" highlight-color="balanced" type="password" class="button-login"></ion-md-input>
-        <ion-md-input ng-model="data.rep_password" placeholder="password" highlight-color="balanced" type="password" class="button-login"></ion-md-input>
+        <ion-md-input ng-model="data.email" placeholder="email" highlight-color="balanced" type="email" class="input-login-forms"></ion-md-input>
+        <ion-md-input ng-model="data.password" placeholder="password" highlight-color="balanced" type="password" class="input-login-forms"></ion-md-input>
+        <ion-md-input ng-model="data.rep_password" placeholder="repeat password" highlight-color="balanced" type="password" class="input-login-forms"></ion-md-input>
       </div>
       <div class="padding">
-        <button class="button button-login button-assertive ink" ng-click="signupEmail()"> Confirm </button>
+        <button class="button button-sign-up ink" ng-click="signupEmail()"> Confirm </button>
       </div>
     </center>
   </ion-content>

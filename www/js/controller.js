@@ -14,3 +14,13 @@ function sortObject(menuItems) {
 	}
 	return sortedMenuItems;
 }
+
+$scope.goBack = function() {
+  $ionicHistory.goBack();
+}
+
+function MyCtrl($scope, $ionicHistory) {
+  $scope.myGoBack = function() {
+    $ionicHistory.goBack();
+  };
+}

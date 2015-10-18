@@ -23,10 +23,14 @@ app.controller('SignUpController', function($scope, $firebase, $ionicPopup, $sta
 			}, function(error, userData) {
 				if (error) {
 					console.log("Error creating user:", error);
+					$ionicPopup.alert({
+						title: 'Failure',
+						template: 'You already have an account with this email'
+					});
 				} else {
 					console.log("Successfully created user account with uid:", userData.uid);
 					$ionicPopup.alert({
-						title: 'Succesful',
+						title: 'Successful',
 						template: 'Your account has been created'
 					});
 					$state.go('map');
@@ -43,3 +47,20 @@ app.controller('SignUpController', function($scope, $firebase, $ionicPopup, $sta
 
 	ionicMaterialInk.displayEffect();
 })
+
+function userExistsCallback(userId, exists) {
+  if (exists) {
+    alert('user ' + userId + ' exists!');
+  } else {
+    alert('user ' + userId + ' does not exist!');
+  }
+}
+
+// Tests to see if /users/<email> has any data.
+function checkIfUserEmailExists(email) {
+  var usersRef = new Firebase(USERS_LOCATION);
+  usersRef.child(email).once('value', function(snapshot) {
+    var exists = (snapshot.val() !== null);
+    userExistsCallback(email, exists);
+  });
+}

@@ -15,9 +15,33 @@
   margin: 10px;
 }
 
-.button-login {
-  width: 350px;
+.button-facebook {
+  width: 390px;
   text-transform: lowercase;
+  background-color: rgb(59, 89, 152);
+  color: white;
+  margin: 8px auto;
+}
+
+.button-login {
+  width: 195px;
+  text-transform: lowercase;
+  background-color: white;
+  margin: 8px auto;
+}
+
+.button-sign-up {
+  width: 390px;
+  text-transform: lowercase;
+  background-color: white;
+  margin: 8px auto;
+}
+
+.input-login-forms {
+  width: 390px;
+  text-transform: lowercase;
+  background-color: transparent;
+  margin: 8px auto;
 }
 
 /* General
@@ -50,6 +74,9 @@ p {
 .app-icon {
     background-color: #fff;
     background: url('../img/logo.png') center;
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
     background-size: cover;
     border-radius: 50%;
     height: 125px;

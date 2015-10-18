@@ -2,31 +2,22 @@
 	<ion-nav-bar class="bar-assertive" align-title="left">
  </ion-nav-bar>
 
-<ion-content scrollbar-y="true">
+<ion-content>
 
 <div id="map" lat="0" lng="0" zoom="15" map>
 </div>
-	<!-- <div>
-		<button class="button button-custom button-assertive ink" ng-click="goToLogin()"> Login </button>
-		<button class="button button-custom button-assertive ink" ng-click="goToMenu()"> Flying Pig </button>
-		<button class="button button-custom button-assertive ink" ng-click="goToMenu()"> Grilled Cheezies</button>
-	</div> -->
+ <div id="right-panel">
+      <ul id="places"></ul>
+			<center>
+      <button id="more" class="button button-assertive" ng-click="goToMenu()">More results</button>
+		</center>
+</div>
 
-	<ion-list>
+	<!-- <ion-list>
 	  <ion-item ng-click="goToMenu()"> Flying Pig </ion-item>
 	  <ion-item ng-click="goToMenu()"> The Keg </ion-item>
 	  </ion-item>
-	</ion-list>
+	</ion-list> -->
 
 </ion-content>
-
-<ion-footer-bar align-title="left" class="bar-assertive">
-  <div class="buttons">
-    <button class="button">Left Button</button>
-  </div>
-  <h1 class="title">Title!</h1>
-  <div class="buttons" ng-click="doSomething()">
-    <button class="button">Right Button</button>
-  </div>
-</ion-footer-bar>
 </ion-view>

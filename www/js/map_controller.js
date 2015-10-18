@@ -19,7 +19,7 @@ app.controller('MapController', function($scope, $firebase, $ionicPopup, $state,
     };
 
     ionicMaterialInk.displayEffect();
-})
+});
 
 app.directive('map', function() {
     return {
@@ -110,10 +110,7 @@ app.directive('map', function() {
 
 
                                 if (placesList) {
-                                    placesList.innerHTML +=
-                                        '<center>' +
-                                        '<a href = "/#/menu/' + place.name + '"><button class="button button-custom button-card button-light js-placeTab">' +
-                                        place.name + '<br>' + place.vicinity '</button> </a><br> </center>';
+                                    placesList.innerHTML += '<center>' + '<a href = "/#/menu/' + place.name + '"><button class="button button-custom button-card button-light js-placeTab">' + place.name + '<br>' + place.vicinity + '</button> </a><br> </center>';
                                 }
 
                                 bounds.extend(place.geometry.location);

@@ -1,0 +1,46 @@
+curl -X POST https://api.locu.com/v2/venue/search -d '{
+"api_key" : "bdeed6bf5eae32da59856986e058743fb11be970",
+"fields" : ["name","menus"],
+"venue_queries" : [
+{
+
+"locu_id":"58ea43b78fba0bf925ad"
+}
+]
+}' | python -mjson.tool
+
+
+
+curl -X POST https://api.locu.com/v2/venue/search -d '{
+"api_key" : "bdeed6bf5eae32da59856986e058743fb11be970",
+"fields" : ["name"],
+"venue_queries" : [
+{
+
+"location" : {
+"geo" : {
+"$in_lat_lng_radius" : [47.647351, -122.317541, 1]
+}
+}
+}
+]
+}' | python -mjson.tool
+
+
+
+
+curl -X POST https://api.locu.com/v2/venue/search -d '{
+"api_key" : "bdeed6bf5eae32da59856986e058743fb11be970",
+"fields" : ["name"],
+"venue_queries" : [
+{
+
+"location" : {
+"geo" : {
+"$in_lat_lng_radius" : [-122.317541, 47.647351, 5000]
+}
+}
+}
+]
+}' | python -mjson.tool
+

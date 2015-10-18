@@ -2,6 +2,19 @@ app.controller('MenuController', function($scope, $state, $location) {
 	$scope.goToMap = function(){
 	      $state.go('map');
 	};
+
+	console.log($state.params.name);
+
+	var ref = new Firebase('https://shining-fire-3905.firebaseio.com/Restaurants');
+	ref.once('value', function(snapshot) {
+			var results = snapshot.exportVal();
+			console.log(results[$state.params.name]);
+			if (results[$state.params.name]) {
+				var menuItems = results[$state.params.name].menuItems;
+				$scope.menuItems = menuItems;
+				$scope.$apply();
+			}
+	});
 })
 
 app.controller('MapController', function($scope, $firebase, $ionicPopup, $state, $location) {
@@ -46,12 +59,31 @@ app.directive('map', function() {
 		restrict: 'A',
 		link:function(scope, element, attrs){
 
+			var initialLocation = new google.maps.LatLng(0,0);
+			
+			if(navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+					initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+					map.setCenter(initialLocation);
+				}, function() {
+					handleNoGeolocation(true);
+				});
+			}
+			// Browser doesn't support Geolocation
+			else {
+				handleNoGeolocation(false);
+			}
+			
+			//var latitude = position.coords.latitude;
+			//var longitude = position.coords.longitude;
+			
 			var zValue = scope.$eval(attrs.zoom);
-			var lat = scope.$eval(attrs.lat);
-			var lng = scope.$eval(attrs.lng);
+			//var lat = latitude;//scope.$eval(attrs.lat);
+			//var lng = longitude;//scope.$eval(attrs.lng);
 
 
-			var myLatlng = new google.maps.LatLng(lat,lng),
+			//var myLatlng = new google.maps.LatLng(lat,lng),
+			var myLatlng = initialLocation,
 			mapOptions = {
 				zoom: zValue,
 				center: myLatlng

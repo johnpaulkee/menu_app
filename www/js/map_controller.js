@@ -71,7 +71,6 @@ app.directive('map', function() {
 					function createMarkers(places) {
 					  var bounds = new google.maps.LatLngBounds();
 					  var placesList = document.getElementById('places');
-						console.log(places);
 					  for (var i = 0, place; place = places[i]; i++) {
 					  (function () {
 						var image = {
@@ -88,7 +87,7 @@ app.directive('map', function() {
 						  icon: image,
 						  title: place.name,
 						  position: place.geometry.location,
-						  address: place.formatted_address,
+						  address: place.vicinity,
 						  id: place.id
 						});
 						
@@ -98,48 +97,45 @@ app.directive('map', function() {
 						});
 						
 						  marker.addListener('click', function() {
-						  		infowindow.setContent('<div><strong>' + marker.title + '</strong><br>' +
-			'Place ID: ' + marker.placeId + '<br>' +
-			marker.id);
+						  		infowindow.setContent('<div><strong>' + marker.title + '</strong><br>' + marker.address + '<br>' + '<a href =\"/#/menu/'+ marker.title + '\"> View Menu </a></span></div>');
 							infowindow.open(map, marker);
+							
+					/* 	document.getElementsByClassName("js-menu")[0].addEventListener('click', function(){
+						alert(marker.title +"  "+marker.address+"  " + marker.position);
+						openMap(marker.title,marker.address);
+						});*/
 						  });
+						
+	
 
 
-						marker.addListener('click', function() {
-						 window.location.href = "testHTML.html";
-					  });
 						if (placesList) {
 						placesList.innerHTML +=
             '<center>' +
-            '<button class="button button-custom button-card button-light" id="placeTab">' +
+            '<a href = "/#/menu/'+place.name +'"><button class="button button-custom button-card button-light js-placeTab">' +
             place.name + '<br>' + place.vicinity
-            '</button> <br> </center>';
+            '</button> </a><br> </center>';
 						}
 		
 
 
 
-
-						 /*  google.maps.event.addListener(marker, 'click', function() {
-							alert(place[i]);
-						  }); */
-						if(placesList){
-						placesList.innerHTML += '<li id="placeTab">' + place.name + '</li>';
-
-						}
-
+						//makeClickable();
+						
 						bounds.extend(place.geometry.location);
 					  }())
+					  
 					   }
 					  map.fitBounds(bounds);
 
-					  if(document.getElementById('placeTab')){
-						        google.maps.event.addDomListener(document.getElementById('placeTab'),
-                    'click', function(name, vicinity) {
-						                window.alert('Map was clicked!');
-						        });
-						}
-						
+					/* function makeClickable(){
+						  if(document.getElementsByClassName('js-placeTab')){
+									google.maps.event.addDomListener(document.getElementById('js-placeTab'),
+						'click', function(name, vicinity,position) {
+											alert("I clicked");
+									});
+							}
+						} */
 					}
 				}, function() {
 					handleNoGeolocation(true);

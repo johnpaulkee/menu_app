@@ -7,5 +7,6 @@ app.controller('SignUpController', function($scope, $firebase, $ionicPopup, $sta
 	$scope.goToMap = function() {
 		$state.go('map')
 	};
+  
 	ionicMaterialInk.displayEffect();
 })

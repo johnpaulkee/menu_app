@@ -3,7 +3,8 @@
 
     <ion-list>
       <ion-item ng-repeat="menuItem in menuItems">
-        {{menuItem}}
+        {{menuItem.itemName}}
+        <button class="button button-balanced" style="float: right" ng-click="likeItem(menuItem, restaurantName)">Like</button>
       </ion-item>
     </ion-list>
 

@@ -1,17 +1,30 @@
 app.controller('RestaurantController', function($scope, $state, $location) {
+	var ref = new Firebase('https://shining-fire-3905.firebaseio.com/Restaurants');
+
 	$scope.goToMap = function(){
 	      $state.go('map');
 	};
 
+	$scope.likeItem = function(menuItem, restaurantName) {
+		menuItem.itemScore++;
+		var updatedItem = {
+			itemName: menuItem.itemName,
+			itemScore: menuItem.itemScore
+		};
+		console.log(menuItem.itemScore);
+		ref.child(restaurantName).child("menuItems").child(menuItem.itemName).set(updatedItem);
+	}
+
 	console.log($state.params.name);
 
-	var ref = new Firebase('https://shining-fire-3905.firebaseio.com/Restaurants');
 	ref.once('value', function(snapshot) {
 			var results = snapshot.exportVal();
 			console.log(results[$state.params.name]);
 			if (results[$state.params.name]) {
 				var menuItems = results[$state.params.name].menuItems;
+				var restaurantName = results[$state.params.name].restaurantName;
 				$scope.menuItems = menuItems;
+				$scope.restaurantName = restaurantName;
 				$scope.$apply();
 			}
 	});
@@ -60,7 +73,7 @@ app.directive('map', function() {
 		link:function(scope, element, attrs){
 
 			var initialLocation = new google.maps.LatLng(0,0);
-			
+
 			if(navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(position) {
 					initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
@@ -73,10 +86,10 @@ app.directive('map', function() {
 			else {
 				handleNoGeolocation(false);
 			}
-			
+
 			//var latitude = position.coords.latitude;
 			//var longitude = position.coords.longitude;
-			
+
 			var zValue = scope.$eval(attrs.zoom);
 			//var lat = latitude;//scope.$eval(attrs.lat);
 			//var lng = longitude;//scope.$eval(attrs.lng);

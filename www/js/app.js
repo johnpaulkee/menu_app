@@ -6,7 +6,7 @@
 app = angular.module('menu-app', ['ionic', 'firebase'])
 
 app.config(function($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/map');    
+    $urlRouterProvider.otherwise('/map');
     $stateProvider
         .state('map', {
             url: '/map',
@@ -14,7 +14,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'MapController'
         })
         .state('restaurant', {
-            url: '/restaurant',
+            url: '/restaurant/:name',
             templateUrl: 'templates/restaurant.html',
             controller: 'RestaurantController'
         })

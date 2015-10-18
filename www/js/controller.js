@@ -2,6 +2,19 @@ app.controller('RestaurantController', function($scope, $state, $location) {
 	$scope.goToMap = function(){
 	      $state.go('map');
 	};
+
+	console.log($state.params.name);
+
+	var ref = new Firebase('https://shining-fire-3905.firebaseio.com/Restaurants');
+	ref.once('value', function(snapshot) {
+			var results = snapshot.exportVal();
+			console.log(results[$state.params.name]);
+			if (results[$state.params.name]) {
+				var menuItems = results[$state.params.name].menuItems;
+				$scope.menuItems = menuItems;
+				$scope.$apply();
+			}
+	});
 })
 
 app.controller('MapController', function($scope, $firebase, $ionicPopup, $state, $location) {

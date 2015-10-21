@@ -34,3 +34,11 @@ function getUidArray(uidObj) {
 	}
 	return uids;
 }
+
+function decodeHTMLStrings(menuItems) {
+	for (var item in menuItems) {
+		var txt = document.createElement("textarea");
+	    txt.innerHTML = item;
+	    item = txt.value;
+	}
+}

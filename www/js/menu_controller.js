@@ -34,7 +34,11 @@ app.controller('MenuController', function($scope, $state, $location, $ionicPopup
 	ref.on('value', function(snapshot) {
 			var results = snapshot.exportVal();
 			console.log(results);
+			var timeoutId;
 			if (results) {
+				if (timeoutId) {
+					window.clearTimeout(timeoutId);
+				}
 				var restaurantName = $state.params.id;
 				var menuItems = results.menuItems;
 				var sortedMenuItems = sortObject(menuItems);
@@ -42,6 +46,8 @@ app.controller('MenuController', function($scope, $state, $location, $ionicPopup
 					sortedMenuItems[item].numLikes = getUidArray(sortedMenuItems[item].uids).length;
 				}
 				console.log(menuItems);
+
+				decodeHTMLStrings(menuItems);
 
 				$scope.restaurantName = restaurantName;
 				$scope.menuItems = sortedMenuItems;
@@ -52,7 +58,7 @@ app.controller('MenuController', function($scope, $state, $location, $ionicPopup
 				requestsRef = new Firebase('https://shining-fire-3905.firebaseio.com/requests');
 				requestsRef.push($state.params.id);
 				console.log("Requested " + $state.params.id);
-				window.setTimeout(function() {
+				timeoutId = window.setTimeout(function() {
 					$scope.menuItems = [ {
 						itemName: "Menu Load Failed",
 						uids: [],

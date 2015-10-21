@@ -24,12 +24,6 @@ app.directive('map', function() {
         restrict: 'A',
         link: function(scope, element, attrs) {
             var initialLocation;
-<<<<<<< HEAD
-			var directionsService = new google.maps.DirectionsService;
-			var directionsDisplay = new google.maps.DirectionsRenderer;
-			var service = new google.maps.DistanceMatrixService;
-=======
->>>>>>> 78ca7006ad510afe69911df3df06c92d8de94ac0
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
                     initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -101,51 +95,6 @@ app.directive('map', function() {
                                 });
 
                                 marker.addListener('click', function() {
-<<<<<<< HEAD
-								
-/* 				service.getDistanceMatrix({
-				origins: initialLocation,
-				destinations: marker.position,
-				travelMode: google.maps.TravelMode.WALKING
-			  }, function(response, status) {
-				if (status !== google.maps.DistanceMatrixStatus.OK) {
-				  alert('Error was: ' + status);
-				} else {
-				  var originList = response.originAddresses;
-				  var destinationList = response.destinationAddresses;
-				  var outputDiv = document.getElementById('output');
-				  outputDiv.innerHTML = '';
-				}
-			  });	 */
-								
-									calculateAndDisplayRoute(directionsService, directionsDisplay);
-                                    infowindow.setContent('<div><strong>' + marker.title + '</strong><br>' + marker.address + '<br>' + '<a href =\"/#/menu/' + marker.title + '\"> View Menu </a></span></div>');
-                                    infowindow.open(map, marker);
-
-									
-	
-									
-									
-									
-                                });
-								
-								
-								function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-								  directionsService.route({
-									origin: initialLocation,
-									destination: marker.position,
-									travelMode: google.maps.TravelMode.WALKING
-								  }, function(response, status) {
-									if (status === google.maps.DirectionsStatus.OK) {
-									  directionsDisplay.setDirections(response);
-									} else {
-									  window.alert('Directions request failed due to ' + status);
-									}
-								  });
-								}
-								
-
-=======
                                     infowindow.setContent('<div><strong>' + marker.title + '</strong><br>' + marker.address + '<br>' + '<a href =\"/#/menu/' + marker.title + '\"> View Menu </a></span></div>');
                                     infowindow.open(map, marker);
 
@@ -154,7 +103,6 @@ app.directive('map', function() {
                                     	openMap(marker.title,marker.address);
                                     	});*/
                                 });
->>>>>>> 78ca7006ad510afe69911df3df06c92d8de94ac0
 
 
 
